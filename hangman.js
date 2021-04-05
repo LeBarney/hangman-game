@@ -12,15 +12,16 @@ const motAleatoire = (dictionnaire) => {
 };
 let mot = motAleatoire(reserveMots);
 let secret = Array(mot.length).fill("_").join().split(",").join(" "); // pour pouvoir afficher un nombre de _ correspondant au nombre de lettres du mot secret
-
-nbreEssai = 10;
+let finEssais = false;
+let nbreEssai = 10;
 let trouve = 0;
+let progress = 0;
 mot = mot.split("");
-while (trouve != 1) {
+while ((trouve != 1) || (finEssais = true)) {
   console.log(mot);
-  console.log(secret);
+  console.log(`${secret}, il vous reste ${nbreEssai} essais`);
   let guess = readLineSync
-    .keyIn("Choisissez une lettre, tapez 5 pour quitter le jeu", {
+    .keyIn("Choisissez une lettre, tapez 5 pour quitter le jeu : ", {
       limit: [
         "a",
         "b",
@@ -66,6 +67,7 @@ while (trouve != 1) {
         secret[i] = guess;
         console.log(guess);
         console.log(secret[i]);
+        progress++
       }
     }
     }
@@ -73,4 +75,13 @@ while (trouve != 1) {
     console.log(`la lettre ${guess} est pas dans le mot`);
     nbreEssai--;
   }
+  if(nbreEssai === 0){
+    console.log('PERDU')
+    process.exit(1)
+  }
+  else if(progress === mot.length){
+    console.log('GAGNÉ')
+    process.exit(1)
+  }
 }
+

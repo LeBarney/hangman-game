@@ -5,7 +5,9 @@ const { randomInt } = require("crypto");
 const {hangmanPic} = require('./pendu.js')
 
 let reserveMots = fs.readFileSync("./dict.txt", "utf-8").split("\n");
+let lancerpartie = 1;
 
+while(lancerpartie = 1){
 const motAleatoire = (dictionnaire) => {
   // cette fonction permet de choisir un mot au hasard dans un fichier donné en paramètre
   let reponse = randomInt(0, dictionnaire.length);
@@ -84,5 +86,6 @@ while ((trouve != 1) || (finEssais = true)) {
     console.log(chalk.green(`GAGNÉ, la réponse était ${mot.join().split(',').join('')}`))
     process.exit(1)
   }
+}
 }
 

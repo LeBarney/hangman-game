@@ -5,9 +5,9 @@ const { randomInt } = require("crypto");
 const {hangmanPic} = require('./pendu.js')
 
 let reserveMots = fs.readFileSync("./dict.txt", "utf-8").split("\n");
-let lancerpartie = 1;
+let lancerPartie = 1;
 
-while(lancerpartie = 1){
+while(lancerPartie === 1){
 const motAleatoire = (dictionnaire) => {
   // cette fonction permet de choisir un mot au hasard dans un fichier donné en paramètre
   let reponse = randomInt(0, dictionnaire.length);
@@ -23,9 +23,7 @@ let progress = 0;
 mot = mot.split("");
 while ((trouve != 1) || (finEssais = true)) {
   console.log(chalk.magenta(`${secret.join().split(',').join(' ')}, il vous reste ${nbreEssai} essais`));
-  let guess = readLineSync
-    .keyIn(chalk.blue("Choisissez une lettre, tapez 5 pour quitter le jeu : "), {
-      limit: [
+  let guess = readLineSync.keyIn(chalk.blue("Choisissez une lettre, tapez 5 pour quitter le jeu : "), {limit: [
         "a",
         "b",
         "c",
@@ -80,7 +78,10 @@ while ((trouve != 1) || (finEssais = true)) {
   }
   if(nbreEssai === 0){
     console.log(chalk.red(`PERDU, la réponse était ${mot.join().split(",").join("")}`));
-    process.exit(1)
+    lancerPartie === readLineSync.keyIn(chalk.blue("Désirez vous rejouer ? tapez 0 pour arrêter"), {limit:["0","1"]});
+    if(lancerPartie === 0){
+      process.exit(1)
+    }
   }
   else if(progress === mot.length){
     console.log(chalk.green(`GAGNÉ, la réponse était ${mot.join().split(',').join('')}`))
@@ -88,4 +89,3 @@ while ((trouve != 1) || (finEssais = true)) {
   }
 }
 }
-
